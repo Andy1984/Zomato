@@ -27,7 +27,6 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func getIndexPathToRemove(id:String) -> NSIndexPath? {
-        
         for i in 0 ..< self.restaurants.count {
             if self.restaurants[i].id == id {
                 let indexPath = IndexPath(row: i, section: 0)
@@ -35,11 +34,6 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         return nil
-    }
-    
-    func getIndexPathToInsert(id:String) -> NSIndexPath {
-        let indexPath = NSIndexPath(row: self.restaurants.count - 1, section: 0)
-        return indexPath
     }
     
     func reloadData() {
