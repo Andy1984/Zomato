@@ -17,6 +17,7 @@ class ZomatoFavouriteManager: NSObject {
         favouriteIDs = UserDefaults.standard.value(forKey: kFavouriteIDs) as? [String] ?? []
     }
     private(set) var favouriteIDs:[String] = []
+    var favouriteRestaurants:[ZomatoRestaurant] = [];
     private let kFavouriteIDs = "kFavouriteIDs"
     func addFavourite(id:String) {
         favouriteIDs.append(id)

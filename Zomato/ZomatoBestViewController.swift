@@ -17,7 +17,7 @@ let abbotsfordEntityType = "subzone"
 let basicURLString = "https://developers.zomato.com/api/v2.1"
 var bestRestaurantCache = "bestRestaurantCache"
 
-class ViewController: UIViewController {
+class ZomatoBestViewController: UIViewController {
     var tableView:ZomatoTableView!
     //发起网络请求
     func request() {
@@ -55,21 +55,15 @@ class ViewController: UIViewController {
             if (rest.aggregate_rating != nil) {
                 rests.append(rest)
             }
-            //Favourite
-            let favouriteIDs = ZomatoFavouriteManager.manager().favouriteIDs
-            for rest in rests {
-                if favouriteIDs.contains(rest.id) {
-                    rest.isFavourite = true
-                }
+        }
+        //Favourite
+        let favouriteIDs = ZomatoFavouriteManager.manager().favouriteIDs
+        for rest in rests {
+            if favouriteIDs.contains(rest.id) {
+                rest.isFavourite = true
+                ZomatoFavouriteManager.manager().favouriteRestaurants.append(rest)
             }
         }
-        //Sort
-        rests.sort(by: { (restA, restB) -> Bool in
-            let floatA:Float! = Float(restA.aggregate_rating!)
-            let floatB:Float! = Float(restB.aggregate_rating!)
-            return floatA > floatB;
-        })
-        
         //刷新数据
         self.tableView.restaurants = rests;
         self.tableView.reloadData();
