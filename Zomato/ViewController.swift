@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
+import SDWebImage
 
 var melbourneID = 259
 var abbotsfordEntityID = 98284
@@ -61,6 +61,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         request()
         title = "Abbotsford"
         //创建tableView
@@ -88,7 +89,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         cell.addressLabel.text = rest.address
         if rest.feautred_image != nil {
             let url = URL(string: rest.feautred_image!)
-            cell.backgroundImageView.af_setImage(withURL: url!)
+            cell.backgroundImageView?.sd_setImage(with: url, completed: nil)
         } else {
             cell.backgroundImageView.image = nil
         }

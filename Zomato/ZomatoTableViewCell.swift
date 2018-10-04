@@ -28,6 +28,8 @@ class ZomatoTableViewCell: UITableViewCell {
         addSubview(backgroundImageView)
         addSubview(nameLabel)
         addSubview(addressLabel)
+        
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
