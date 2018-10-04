@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+let ZomatoAddFavouriteNotification:NSNotification.Name = NSNotification.Name(rawValue: "ZomatoAddFavouriteNotification")
+let ZomatoRemoveFavouriteNotification:NSNotification.Name = NSNotification.Name(rawValue: "ZomatoRemoveFavouriteNotification")
 class ZomatoFavouriteManager: NSObject {
     private static let _manager = ZomatoFavouriteManager()
     class func manager() -> ZomatoFavouriteManager{
@@ -18,16 +19,26 @@ class ZomatoFavouriteManager: NSObject {
     }
     private(set) var favouriteIDs:[String] = []
     var favouriteRestaurants:[ZomatoRestaurant] = [];
+    
     private let kFavouriteIDs = "kFavouriteIDs"
-    func addFavourite(id:String) {
-        favouriteIDs.append(id)
+    func addFavourite(restaurant:ZomatoRestaurant) {
+        favouriteIDs.append(restaurant.id)
         UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
+        NotificationCenter.default.post(name: ZomatoAddFavouriteNotification, object: nil, userInfo: ["restaurant":restaurant])
     }
-    func removeFavourite(id:String) {
+    func removeFavourite(restaurant:ZomatoRestaurant) {
+        guard let id = restaurant.id else {
+            return
+        }
         if let index = favouriteIDs.index(of: id) {
             favouriteIDs.remove(at: index)
+            UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
+            NotificationCenter.default.post(name: ZomatoRemoveFavouriteNotification, object: nil, userInfo: ["restaurant":restaurant])
+        } else {
+            print("啥")
         }
-        UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
+        
+        
     }
     
   

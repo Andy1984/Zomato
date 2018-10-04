@@ -64,7 +64,7 @@ class ZomatoBestViewController: UIViewController {
                 ZomatoFavouriteManager.manager().favouriteRestaurants.append(rest)
             }
         }
-        //刷新数据
+        //ReloadData
         self.tableView.restaurants = rests;
         self.tableView.reloadData();
     }

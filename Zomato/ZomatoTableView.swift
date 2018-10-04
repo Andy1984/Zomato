@@ -12,7 +12,7 @@ let cellWidth = UIScreen.main.bounds.size.width
 let cellHeight = cellWidth * 9.0 / 16.0
 class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
     var restaurants:[ZomatoRestaurant] = []
-    private var tableView:UITableView!
+    var tableView:UITableView!
     override init(frame: CGRect) {
         super.init(frame: frame)
         //创建tableView
@@ -24,6 +24,22 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView.separatorStyle = .none
         tableView.rowHeight = cellHeight
         tableView.allowsSelection = false
+    }
+    
+    func getIndexPathToRemove(id:String) -> NSIndexPath? {
+        
+        for i in 0 ..< self.restaurants.count {
+            if self.restaurants[i].id == id {
+                let indexPath = IndexPath(row: i, section: 0)
+                return indexPath as NSIndexPath
+            }
+        }
+        return nil
+    }
+    
+    func getIndexPathToInsert(id:String) -> NSIndexPath {
+        let indexPath = NSIndexPath(row: self.restaurants.count - 1, section: 0)
+        return indexPath
     }
     
     func reloadData() {
@@ -58,9 +74,9 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         let rest = self.restaurants[sender.tag]
         rest.isFavourite = sender.isSelected
         if rest.isFavourite {
-            ZomatoFavouriteManager.manager().addFavourite(id: rest.id)
+            ZomatoFavouriteManager.manager().addFavourite(restaurant: rest)
         } else {
-            ZomatoFavouriteManager.manager().removeFavourite(id: rest.id)
+            ZomatoFavouriteManager.manager().removeFavourite(restaurant: rest)
         }
         
     }
