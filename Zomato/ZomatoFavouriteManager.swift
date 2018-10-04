@@ -16,6 +16,7 @@ class ZomatoFavouriteManager: NSObject {
     }
     private override init() {
         favouriteIDs = UserDefaults.standard.value(forKey: kFavouriteIDs) as? [String] ?? []
+        
     }
     private(set) var favouriteIDs:[String] = []
     var favouriteRestaurants:[ZomatoRestaurant] = [];
@@ -23,6 +24,7 @@ class ZomatoFavouriteManager: NSObject {
     private let kFavouriteIDs = "kFavouriteIDs"
     func addFavourite(restaurant:ZomatoRestaurant) {
         favouriteIDs.append(restaurant.id)
+        favouriteRestaurants.append(restaurant)
         UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
         NotificationCenter.default.post(name: ZomatoAddFavouriteNotification, object: nil, userInfo: ["restaurant":restaurant])
     }
@@ -32,16 +34,9 @@ class ZomatoFavouriteManager: NSObject {
         }
         if let index = favouriteIDs.index(of: id) {
             favouriteIDs.remove(at: index)
+            favouriteRestaurants.remove(at: index)
             UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
             NotificationCenter.default.post(name: ZomatoRemoveFavouriteNotification, object: nil, userInfo: ["restaurant":restaurant])
-        } else {
-            print("啥")
         }
-        
-        
     }
-    
-  
-    
-    
 }
