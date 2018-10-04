@@ -78,7 +78,9 @@ class ZomatoBestViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(addFavourite(notification:)), name: ZomatoAddFavouriteNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(removeFavourite(notification:)), name: ZomatoRemoveFavouriteNotification, object: nil)
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     
     @objc func removeFavourite(notification:Notification) {

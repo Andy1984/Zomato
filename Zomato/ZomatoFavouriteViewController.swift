@@ -44,7 +44,9 @@ class ZomatoFavouriteViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     @objc func addFavourite(notification:Notification) {
         guard let userInfo = notification.userInfo else {
             return
