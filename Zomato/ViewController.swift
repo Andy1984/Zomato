@@ -17,6 +17,7 @@ let abbotsfordEntityType = "subzone"
 let basicURLString = "https://developers.zomato.com/api/v2.1"
 let cellWidth = UIScreen.main.bounds.size.width
 let cellHeight = cellWidth * 9.0 / 16.0
+var bestRestaurantCache = "bestRestaurantCache"
 
 class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     var tableView:UITableView!
@@ -28,35 +29,44 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
                       "entity_type":abbotsfordEntityType,
                       ] as [String : Any];
         Alamofire.request(URLString, method: .get, parameters: params, encoding: URLEncoding.default, headers: ["user-key":userKey]).responseJSON { (response) in
-            print(response)
             guard let resultDict = response.result.value as? [String : Any] else {
+                if let oldResultDict = UserDefaults.standard.value(forKey: bestRestaurantCache) as? [String:Any] {
+                    self.handleResultDict(oldResultDict)
+                }
                 return
             }
-            let bestRatedRestaurants:[[String:Any]] = resultDict["best_rated_restaurant"] as! [[String : Any]]
-            var rests:[ZomatoRestaurant] = [];
-            for dict in bestRatedRestaurants {
-                let info = dict["restaurant"] as! [String: Any]
-                let rest = ZomatoRestaurant()
-                rest.user_rating = info["user_rating"] as? [String:Any]
-                rest.aggregate_rating = rest.user_rating?["aggregate_rating"] as? String
-                rest.feautred_image = info["featured_image"] as? String
-                rest.location = info["location"] as? [String: Any]
-                rest.address = rest.location?["address"] as? String
-                rest.name = info["name"] as? String
-                if (rest.aggregate_rating != nil) {
-                    rests.append(rest)
-                }
-            }
-            rests.sort(by: { (restA, restB) -> Bool in
-                let floatA:Float! = Float(restA.aggregate_rating!)
-                let floatB:Float! = Float(restB.aggregate_rating!)
-                return floatA > floatB;
-            })
-
-            self.restaurants = rests;
-            //刷新数据
-            self.tableView.reloadData()
+            
+            //把整个存起来
+            UserDefaults.standard.setValue(resultDict, forKey: bestRestaurantCache)
+            self.handleResultDict(resultDict)
         }
+    }
+    
+    func handleResultDict(_ resultDict:[String : Any]) {
+        let bestRatedRestaurants:[[String:Any]] = resultDict["best_rated_restaurant"] as! [[String : Any]]
+        var rests:[ZomatoRestaurant] = [];
+        for dict in bestRatedRestaurants {
+            let info = dict["restaurant"] as! [String: Any]
+            let rest = ZomatoRestaurant()
+            rest.user_rating = info["user_rating"] as? [String:Any]
+            rest.aggregate_rating = rest.user_rating?["aggregate_rating"] as? String
+            rest.feautred_image = info["featured_image"] as? String
+            rest.location = info["location"] as? [String: Any]
+            rest.address = rest.location?["address"] as? String
+            rest.name = info["name"] as? String
+            if (rest.aggregate_rating != nil) {
+                rests.append(rest)
+            }
+        }
+        rests.sort(by: { (restA, restB) -> Bool in
+            let floatA:Float! = Float(restA.aggregate_rating!)
+            let floatB:Float! = Float(restB.aggregate_rating!)
+            return floatA > floatB;
+        })
+        
+        self.restaurants = rests;
+        //刷新数据
+        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
