@@ -7,22 +7,97 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+var melbourneID = 259
+var abbotsfordEntityID = 98284
+let userKey = "0017c80f7b577868dce86c940250eeaa"
+let abbotsfordEntityType = "subzone"
+let basicURLString = "https://developers.zomato.com/api/v2.1"
+let cellWidth = UIScreen.main.bounds.size.width
+let cellHeight = cellWidth * 9.0 / 16.0
+
+class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     var tableView:UITableView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        title = "Abbotsford"
-//        //创建tableView
-//        tableView = UITableView(frame: self.view.frame, style: .plain)
-//        view.addSubview(tableView)
-//        tableView.delegate = self
-//        tableView.dataSource = self
-        
-        let key = "0017c80f7b577868dce86c940250eeaa"
+    var restaurants:[ZomatoRestaurant] = []
+    //发起网络请求
+    func request() {
+        let URLString = basicURLString + "/location_details"
+        let params = ["entity_id":abbotsfordEntityID,
+                      "entity_type":abbotsfordEntityType,
+                      ] as [String : Any];
+        Alamofire.request(URLString, method: .get, parameters: params, encoding: URLEncoding.default, headers: ["user-key":userKey]).responseJSON { (response) in
+            print(response)
+            guard let resultDict = response.result.value as? [String : Any] else {
+                return
+            }
+            let bestRatedRestaurants:[[String:Any]] = resultDict["best_rated_restaurant"] as! [[String : Any]]
+            var rests:[ZomatoRestaurant] = [];
+            for dict in bestRatedRestaurants {
+                let info = dict["restaurant"] as! [String: Any]
+                let rest = ZomatoRestaurant()
+                rest.user_rating = info["user_rating"] as? [String:Any]
+                rest.aggregate_rating = rest.user_rating?["aggregate_rating"] as? String
+                rest.feautred_image = info["featured_image"] as? String
+                rest.location = info["location"] as? [String: Any]
+                rest.address = rest.location?["address"] as? String
+                rest.name = info["name"] as? String
+                if (rest.aggregate_rating != nil) {
+                    rests.append(rest)
+                }
+            }
+            rests.sort(by: { (restA, restB) -> Bool in
+                let floatA:Float! = Float(restA.aggregate_rating!)
+                let floatB:Float! = Float(restB.aggregate_rating!)
+                return floatA > floatB;
+            })
+
+            self.restaurants = rests;
+            //刷新数据
+            self.tableView.reloadData()
+        }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        request()
+        title = "Abbotsford"
+        //创建tableView
+        tableView = UITableView(frame: self.view.frame, style: .plain)
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ZomatoTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.separatorStyle = .none
+        tableView.rowHeight = cellHeight
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //十个最佳
+        if self.restaurants.count > 10 {
+            return 10;
+        }
+        return self.restaurants.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ZomatoTableViewCell
+        let rest = self.restaurants[indexPath.row]
+        cell.nameLabel.text = rest.name
+        cell.addressLabel.text = rest.address
+        if rest.feautred_image != nil {
+            let url = URL(string: rest.feautred_image!)
+            cell.backgroundImageView.af_setImage(withURL: url!)
+        } else {
+            cell.backgroundImageView.image = nil
+        }
+        
+        return cell
+    }
+    
+
+
 
 
 }
