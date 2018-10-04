@@ -59,7 +59,6 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEm
         let rest = self.restaurants[indexPath.row]
         cell.nameLabel.text = rest.name
         cell.addressLabel.text = rest.address
-        cell.favouriteButton.tag = indexPath.row
         cell.favouriteButton.isSelected = rest.isFavourite
         if let url = URL(string: rest.feautred_image!) {
             let option = SDWebImageOptions(rawValue: 0)
@@ -72,8 +71,12 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEm
     }
     
     @objc func favouriteButtonClicked(sender:UIButton) {
+        guard let cell = sender.superview as? ZomatoTableViewCell else {
+            return
+        }
+        let tag = tableView.indexPath(for: cell)!.row
         sender.isSelected = !sender.isSelected
-        let rest = self.restaurants[sender.tag]
+        let rest = self.restaurants[tag]
         rest.isFavourite = sender.isSelected
         if rest.isFavourite {
             ZomatoFavouriteManager.manager().addFavourite(restaurant: rest)

@@ -38,7 +38,11 @@ class ZomatoFavouriteViewController: UIViewController {
             return
         }
         self.tableView.restaurants.remove(at: indexPath.row)
-        self.tableView.reloadData()
+        self.tableView.tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+        //Hide bug of DZNEmptyDataSet
+        if self.tableView.restaurants.count == 0 {
+            self.tableView.reloadData()
+        }
     }
     
     @objc func addFavourite(notification:Notification) {
