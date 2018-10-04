@@ -8,7 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
-
+import SDWebImage
 let cellWidth = UIScreen.main.bounds.size.width
 let cellHeight = cellWidth * 9.0 / 16.0
 class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource {
@@ -62,7 +62,8 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEm
         cell.favouriteButton.tag = indexPath.row
         cell.favouriteButton.isSelected = rest.isFavourite
         if let url = URL(string: rest.feautred_image!) {
-            cell.backgroundImageView?.sd_setImage(with: url, completed: nil)
+            let option = SDWebImageOptions(rawValue: 0)
+            cell.backgroundImageView?.sd_setImage(with: url, placeholderImage: UIImage(named: "carousel_placeholder"), options: option, completed: nil)
         } else {
             cell.backgroundImageView.image = nil
         }

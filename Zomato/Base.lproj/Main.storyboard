@@ -64,7 +64,7 @@
         <scene sceneID="URN-Hc-9JO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7F1-KV-85Y" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Abbotsford" id="OOL-p8-Wlr" userLabel="Abbotsford"/>
+                    <tabBarItem key="tabBarItem" title="Abbotsford" image="icon_tab_album_p" id="OOL-p8-Wlr" userLabel="Abbotsford"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4kH-wB-i9O">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -83,7 +83,7 @@
         <scene sceneID="HZf-hE-uas">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="41I-qU-5pN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favourite" image="icon_liked" id="Vte-5Z-mkE"/>
+                    <tabBarItem key="tabBarItem" title="Favourite" image="icon_like" id="Vte-5Z-mkE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QMK-fS-dCf">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -100,6 +100,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_liked" width="24" height="21"/>
+        <image name="icon_like" width="24" height="21"/>
+        <image name="icon_tab_album_p" width="26" height="26"/>
     </resources>
 </document>
