@@ -113,7 +113,9 @@ class ZomatoBestViewController: UIViewController {
         guard let indexPath = tableView.getIndexPathToRemove(id: rest.id) else {
             return
         }
-        let cell = self.tableView.tableView.cellForRow(at: indexPath as IndexPath) as! ZomatoTableViewCell
+        guard let cell = self.tableView.tableView.cellForRow(at: indexPath as IndexPath) as? ZomatoTableViewCell else {
+            return
+        }
         cell.favouriteButton.isSelected = true
     }
     
