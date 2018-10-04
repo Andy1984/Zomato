@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
+  - DZNEmptyDataSet (1.8.1)
   - libwebp (0.6.1):
     - libwebp/core (= 0.6.1)
     - libwebp/dec (= 0.6.1)
@@ -33,20 +34,23 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - DZNEmptyDataSet
   - SDWebImage
   - SDWebImage/WebP
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - DZNEmptyDataSet
     - libwebp
     - SDWebImage
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   libwebp: 0f01098c6c17175391af621b2f14150f3ca16e16
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: c65318fab180abbdb89511c2d5558df8a1fdfc22
+PODFILE CHECKSUM: eda7f70dabf5652957882bcc0cc49dda0b608968
 
 COCOAPODS: 1.5.3

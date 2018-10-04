@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 let cellWidth = UIScreen.main.bounds.size.width
 let cellHeight = cellWidth * 9.0 / 16.0
-class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
+class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource {
     var restaurants:[ZomatoRestaurant] = []
     var tableView:UITableView!
     override init(frame: CGRect) {
@@ -24,7 +25,13 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView.separatorStyle = .none
         tableView.rowHeight = cellHeight
         tableView.allowsSelection = false
+        tableView.emptyDataSetSource = self
     }
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributeString:NSAttributedString = NSAttributedString(string: "No favourite")
+        return attributeString
+    }
+    
     
     func getIndexPathToRemove(id:String) -> NSIndexPath? {
         for i in 0 ..< self.restaurants.count {
