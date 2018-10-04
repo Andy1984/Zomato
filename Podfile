@@ -5,5 +5,6 @@ use_frameworks!
 target 'Zomato' do
     pod 'Alamofire', '~> 4.7'
     pod 'SDWebImage'
-    pod 'SDWebImage/WebP'
+    pod 'SDWebImage/WebP',:inhibit_warnings => true
+
 end
