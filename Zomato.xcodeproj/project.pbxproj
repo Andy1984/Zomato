@@ -15,6 +15,7 @@
 		042887752165DA4900F37A92 /* ZomatoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */; };
 		044F7CCA2165E6F6004D7313 /* ZomatoRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */; };
 		044F7CD021660A5E004D7313 /* ZomatoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */; };
+		044F7CD221661681004D7313 /* ZomatoFavouriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CD121661681004D7313 /* ZomatoFavouriteManager.swift */; };
 		612090C8283050C2CD7DDAA9 /* Pods_Zomato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A677816CE82BE4433C1185BC /* Pods_Zomato.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoTableViewCell.swift; sourceTree = "<group>"; };
 		044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoRestaurant.swift; sourceTree = "<group>"; };
 		044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoTableView.swift; sourceTree = "<group>"; };
+		044F7CD121661681004D7313 /* ZomatoFavouriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoFavouriteManager.swift; sourceTree = "<group>"; };
 		564A9A4E21345BCEB1E3B795 /* Pods-Zomato.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zomato.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zomato/Pods-Zomato.debug.xcconfig"; sourceTree = "<group>"; };
 		A677816CE82BE4433C1185BC /* Pods_Zomato.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zomato.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B707AE66D61FD94D9465E2 /* Pods-Zomato.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zomato.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zomato/Pods-Zomato.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */,
 				044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */,
 				042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */,
+				044F7CD121661681004D7313 /* ZomatoFavouriteManager.swift */,
 				042887662165D71100F37A92 /* Main.storyboard */,
 				042887692165D71100F37A92 /* Assets.xcassets */,
 				0428876B2165D71100F37A92 /* LaunchScreen.storyboard */,
@@ -226,6 +229,7 @@
 				042887632165D71100F37A92 /* AppDelegate.swift in Sources */,
 				044F7CD021660A5E004D7313 /* ZomatoTableView.swift in Sources */,
 				042887752165DA4900F37A92 /* ZomatoTableViewCell.swift in Sources */,
+				044F7CD221661681004D7313 /* ZomatoFavouriteManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

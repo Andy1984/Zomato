@@ -55,7 +55,14 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     @objc func favouriteButtonClicked(sender:UIButton) {
         sender.isSelected = !sender.isSelected
-        self.restaurants[sender.tag].isFavourite = sender.isSelected
+        let rest = self.restaurants[sender.tag]
+        rest.isFavourite = sender.isSelected
+        if rest.isFavourite {
+            ZomatoFavouriteManager.manager().addFavourite(id: rest.id)
+        } else {
+            ZomatoFavouriteManager.manager().removeFavourite(id: rest.id)
+        }
+        
     }
 
 }

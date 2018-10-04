@@ -51,10 +51,19 @@ class ViewController: UIViewController {
             rest.location = info["location"] as? [String: Any]
             rest.address = rest.location?["address"] as? String
             rest.name = info["name"] as? String
+            rest.id = info["id"] as? String
             if (rest.aggregate_rating != nil) {
                 rests.append(rest)
             }
+            //Favourite
+            let favouriteIDs = ZomatoFavouriteManager.manager().favouriteIDs
+            for rest in rests {
+                if favouriteIDs.contains(rest.id) {
+                    rest.isFavourite = true
+                }
+            }
         }
+        //Sort
         rests.sort(by: { (restA, restB) -> Bool in
             let floatA:Float! = Float(restA.aggregate_rating!)
             let floatB:Float! = Float(restB.aggregate_rating!)
