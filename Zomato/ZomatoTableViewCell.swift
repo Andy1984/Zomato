@@ -12,6 +12,8 @@ class ZomatoTableViewCell: UITableViewCell {
     var nameLabel:UILabel!
     var addressLabel:UILabel!
     var backgroundImageView:UIImageView!
+    var favouriteButton:UIButton!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -31,26 +33,19 @@ class ZomatoTableViewCell: UITableViewCell {
         addressLabel.textColor = .white
         addSubview(addressLabel)
         
-        
-        
-        
-        
+        favouriteButton = UIButton(frame: CGRect(x: cellWidth - 50, y: 0, width: 50, height: 50))
+        favouriteButton.setImage(UIImage(named: "icon_like"), for: .normal)
+        favouriteButton.setImage(UIImage(named: "icon_liked"), for: .selected)
+        addSubview(favouriteButton)
     }
     
     func addGradient() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight))
         let gradient = CAGradientLayer()
-        
         gradient.frame = view.bounds
-        
         gradient.colors = [UIColor(white: 0, alpha: 0.0).cgColor, UIColor(white: 0, alpha: 0.7).cgColor]
-        
         view.layer.insertSublayer(gradient, at: 0)
         addSubview(view)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

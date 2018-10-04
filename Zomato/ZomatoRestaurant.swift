@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ZomatoRestaurant: NSObject {
+class ZomatoRestaurant {
     var aggregate_rating:String?
-    var user_rating:[String:Any]?
     var feautred_image:String?
-    var location:[String: Any]?
     var address:String?
     var name:String?
+    
+    var location:[String: Any]?
+    var user_rating:[String:Any]?
 }
