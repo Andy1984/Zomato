@@ -9,6 +9,7 @@
 import UIKit
 
 class ZomatoRestaurant {
+    var id:String!
     var aggregate_rating:String?
     var feautred_image:String?
     var address:String?
@@ -16,4 +17,5 @@ class ZomatoRestaurant {
     
     var location:[String: Any]?
     var user_rating:[String:Any]?
+    var isFavourite = false
 }

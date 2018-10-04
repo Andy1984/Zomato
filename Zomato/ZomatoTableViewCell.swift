@@ -37,7 +37,13 @@ class ZomatoTableViewCell: UITableViewCell {
         favouriteButton.setImage(UIImage(named: "icon_like"), for: .normal)
         favouriteButton.setImage(UIImage(named: "icon_liked"), for: .selected)
         addSubview(favouriteButton)
+//        favouriteButton.addTarget(self, action: #selector(favouriteButtonClicked), for: UIControl.Event.touchUpInside)
     }
+    
+//    @objc func favouriteButtonClicked(sender:UIButton) {
+//        sender.isSelected = !sender.isSelected
+//        
+//    }
     
     func addGradient() {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight))

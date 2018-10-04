@@ -23,6 +23,7 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView.register(ZomatoTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
         tableView.rowHeight = cellHeight
+        tableView.allowsSelection = false
     }
     
     func reloadData() {
@@ -33,10 +34,6 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //十个最佳
-        if self.restaurants.count > 10 {
-            return 10;
-        }
         return self.restaurants.count
     }
     
@@ -45,13 +42,20 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         let rest = self.restaurants[indexPath.row]
         cell.nameLabel.text = rest.name
         cell.addressLabel.text = rest.address
-        if rest.feautred_image != nil {
-            let url = URL(string: rest.feautred_image!)
+        cell.favouriteButton.tag = indexPath.row
+        cell.favouriteButton.isSelected = rest.isFavourite
+        if let url = URL(string: rest.feautred_image!) {
             cell.backgroundImageView?.sd_setImage(with: url, completed: nil)
         } else {
             cell.backgroundImageView.image = nil
         }
+        cell.favouriteButton.addTarget(self, action: #selector(favouriteButtonClicked), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func favouriteButtonClicked(sender:UIButton) {
+        sender.isSelected = !sender.isSelected
+        self.restaurants[sender.tag].isFavourite = sender.isSelected
     }
 
 }
