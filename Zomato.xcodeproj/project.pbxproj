@@ -15,8 +15,9 @@
 		042887752165DA4900F37A92 /* ZomatoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */; };
 		044F7CCA2165E6F6004D7313 /* ZomatoRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */; };
 		044F7CD021660A5E004D7313 /* ZomatoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */; };
-		044F7CD221661681004D7313 /* ZomatoFavouriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CD121661681004D7313 /* ZomatoFavouriteManager.swift */; };
 		044F7CD4216628CC004D7313 /* ZomatoFavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F7CD3216628CC004D7313 /* ZomatoFavouriteViewController.swift */; };
+		04B55071217E8B13007B38EF /* ZomatoHttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B55070217E8B13007B38EF /* ZomatoHttpManager.swift */; };
+		04B55076217E8FC6007B38EF /* ZomatoFavouriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B55075217E8FC6007B38EF /* ZomatoFavouriteManager.swift */; };
 		612090C8283050C2CD7DDAA9 /* Pods_Zomato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A677816CE82BE4433C1185BC /* Pods_Zomato.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +32,9 @@
 		042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoTableViewCell.swift; sourceTree = "<group>"; };
 		044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoRestaurant.swift; sourceTree = "<group>"; };
 		044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoTableView.swift; sourceTree = "<group>"; };
-		044F7CD121661681004D7313 /* ZomatoFavouriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoFavouriteManager.swift; sourceTree = "<group>"; };
 		044F7CD3216628CC004D7313 /* ZomatoFavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoFavouriteViewController.swift; sourceTree = "<group>"; };
+		04B55070217E8B13007B38EF /* ZomatoHttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZomatoHttpManager.swift; sourceTree = "<group>"; };
+		04B55075217E8FC6007B38EF /* ZomatoFavouriteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZomatoFavouriteManager.swift; sourceTree = "<group>"; };
 		564A9A4E21345BCEB1E3B795 /* Pods-Zomato.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zomato.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Zomato/Pods-Zomato.debug.xcconfig"; sourceTree = "<group>"; };
 		A677816CE82BE4433C1185BC /* Pods_Zomato.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Zomato.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B707AE66D61FD94D9465E2 /* Pods-Zomato.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Zomato.release.xcconfig"; path = "Pods/Target Support Files/Pods-Zomato/Pods-Zomato.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,19 +73,44 @@
 		042887612165D71100F37A92 /* Zomato */ = {
 			isa = PBXGroup;
 			children = (
+				04B55074217E8E94007B38EF /* View */,
+				04B55073217E8E88007B38EF /* Model */,
+				04B55072217E8E79007B38EF /* VIewController */,
 				042887622165D71100F37A92 /* AppDelegate.swift */,
-				042887642165D71100F37A92 /* ZomatoBestViewController.swift */,
-				044F7CD3216628CC004D7313 /* ZomatoFavouriteViewController.swift */,
-				044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */,
-				044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */,
-				042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */,
-				044F7CD121661681004D7313 /* ZomatoFavouriteManager.swift */,
 				042887662165D71100F37A92 /* Main.storyboard */,
 				042887692165D71100F37A92 /* Assets.xcassets */,
 				0428876B2165D71100F37A92 /* LaunchScreen.storyboard */,
 				0428876E2165D71100F37A92 /* Info.plist */,
 			);
 			path = Zomato;
+			sourceTree = "<group>";
+		};
+		04B55072217E8E79007B38EF /* VIewController */ = {
+			isa = PBXGroup;
+			children = (
+				042887642165D71100F37A92 /* ZomatoBestViewController.swift */,
+				044F7CD3216628CC004D7313 /* ZomatoFavouriteViewController.swift */,
+			);
+			path = VIewController;
+			sourceTree = "<group>";
+		};
+		04B55073217E8E88007B38EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04B55075217E8FC6007B38EF /* ZomatoFavouriteManager.swift */,
+				04B55070217E8B13007B38EF /* ZomatoHttpManager.swift */,
+				044F7CC92165E6F6004D7313 /* ZomatoRestaurant.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04B55074217E8E94007B38EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				044F7CCF21660A5E004D7313 /* ZomatoTableView.swift */,
+				042887742165DA4900F37A92 /* ZomatoTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		5A17E8648E8AECB0A6D83331 /* Pods */ = {
@@ -230,12 +257,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				044F7CCA2165E6F6004D7313 /* ZomatoRestaurant.swift in Sources */,
+				04B55076217E8FC6007B38EF /* ZomatoFavouriteManager.swift in Sources */,
 				042887652165D71100F37A92 /* ZomatoBestViewController.swift in Sources */,
 				042887632165D71100F37A92 /* AppDelegate.swift in Sources */,
 				044F7CD021660A5E004D7313 /* ZomatoTableView.swift in Sources */,
 				044F7CD4216628CC004D7313 /* ZomatoFavouriteViewController.swift in Sources */,
 				042887752165DA4900F37A92 /* ZomatoTableViewCell.swift in Sources */,
-				044F7CD221661681004D7313 /* ZomatoFavouriteManager.swift in Sources */,
+				04B55071217E8B13007B38EF /* ZomatoHttpManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
