@@ -7,4 +7,7 @@ target 'Zomato' do
     pod 'SDWebImage'
     pod 'SDWebImage/WebP',:inhibit_warnings => true
     pod 'DZNEmptyDataSet',:inhibit_warnings => true
+    pod 'HandyJSON'
+    pod 'RxSwift'
+    pod 'RxCocoa'
 end
