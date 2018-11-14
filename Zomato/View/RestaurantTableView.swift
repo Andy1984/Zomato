@@ -11,8 +11,8 @@ import DZNEmptyDataSet
 import SDWebImage
 let cellWidth = UIScreen.main.bounds.size.width
 let cellHeight = cellWidth * 9.0 / 16.0
-class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource {
-    var restaurants:[ZomatoRestaurant] = []
+class RestaurantTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource {
+    var restaurants:[Restaurant] = []
     var tableView:UITableView!
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEm
         self.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ZomatoTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(RestaurantCell.self, forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
         tableView.rowHeight = cellHeight
         tableView.allowsSelection = false
@@ -55,7 +55,7 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEm
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ZomatoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RestaurantCell
         let rest = self.restaurants[indexPath.row]
         cell.nameLabel.text = rest.name
         cell.addressLabel.text = rest.address
@@ -71,7 +71,7 @@ class ZomatoTableView: UIView, UITableViewDelegate, UITableViewDataSource, DZNEm
     }
     
     @objc func favouriteButtonClicked(sender:UIButton) {
-        guard let cell = sender.superview as? ZomatoTableViewCell else {
+        guard let cell = sender.superview as? RestaurantCell else {
             return
         }
         let tag = tableView.indexPath(for: cell)!.row

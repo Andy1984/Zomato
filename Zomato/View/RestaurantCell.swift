@@ -1,5 +1,5 @@
 //
-//  ZomatoTableViewCell.swift
+//  RestaurantCell.swift
 //  Zomato
 //
 //  Created by mac on 2018/10/4.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZomatoTableViewCell: UITableViewCell {
+class RestaurantCell: UITableViewCell {
     var nameLabel:UILabel!
     var addressLabel:UILabel!
     var backgroundImageView:UIImageView!

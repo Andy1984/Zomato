@@ -19,16 +19,16 @@ class ZomatoFavouriteManager: NSObject {
         
     }
     private(set) var favouriteIDs:[String] = []
-    var favouriteRestaurants:[ZomatoRestaurant] = [];
+    var favouriteRestaurants:[Restaurant] = [];
     
     private let kFavouriteIDs = "kFavouriteIDs"
-    func addFavourite(restaurant:ZomatoRestaurant) {
+    func addFavourite(restaurant:Restaurant) {
         favouriteIDs.append(restaurant.id)
         favouriteRestaurants.append(restaurant)
         UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
         NotificationCenter.default.post(name: ZomatoAddFavouriteNotification, object: nil, userInfo: ["restaurant":restaurant])
     }
-    func removeFavourite(restaurant:ZomatoRestaurant) {
+    func removeFavourite(restaurant:Restaurant) {
         guard let id = restaurant.id else {
             return
         }

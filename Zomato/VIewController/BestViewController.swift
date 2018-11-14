@@ -11,11 +11,11 @@ import UIKit
 
 
 
-class ZomatoBestViewController: UIViewController {
-    var tableView:ZomatoTableView!
+class BestViewController: UIViewController {
+    var tableView:RestaurantTableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView = ZomatoTableView(frame: self.view.frame)
+        self.tableView = RestaurantTableView(frame: self.view.frame)
         view.addSubview(tableView)
         let manager = ZomatoHttpManager()
         //http request and cache
@@ -37,7 +37,7 @@ class ZomatoBestViewController: UIViewController {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let rest = userInfo["restaurant"] as? ZomatoRestaurant else {
+        guard let rest = userInfo["restaurant"] as? Restaurant else {
             return
         }
         guard let id = rest.id else {
@@ -48,7 +48,7 @@ class ZomatoBestViewController: UIViewController {
         }
 
         let cell = self.tableView.tableView.cellForRow(at: indexPath as IndexPath)
-        guard let zCell = cell as? ZomatoTableViewCell else {
+        guard let zCell = cell as? RestaurantCell else {
             return
         }
         zCell.favouriteButton.isSelected = false
@@ -59,13 +59,13 @@ class ZomatoBestViewController: UIViewController {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let rest = userInfo["restaurant"] as? ZomatoRestaurant else {
+        guard let rest = userInfo["restaurant"] as? Restaurant else {
             return
         }
         guard let indexPath = tableView.getIndexPathToRemove(id: rest.id) else {
             return
         }
-        guard let cell = self.tableView.tableView.cellForRow(at: indexPath as IndexPath) as? ZomatoTableViewCell else {
+        guard let cell = self.tableView.tableView.cellForRow(at: indexPath as IndexPath) as? RestaurantCell else {
             return
         }
         cell.favouriteButton.isSelected = true

@@ -1,22 +1,12 @@
-
-
-//
-//  ZomatoFavouriteViewController.swift
-//  Zomato
-//
-//  Created by mac on 2018/10/4.
-//  Copyright © 2018 YWC. All rights reserved.
-//
-
 import UIKit
 
-class ZomatoFavouriteViewController: UIViewController {
-    var tableView:ZomatoTableView!
+class FavouriteViewController: UIViewController {
+    var tableView:RestaurantTableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Favourite"
-        self.tableView = ZomatoTableView(frame: self.view.frame)
+        self.tableView = RestaurantTableView(frame: self.view.frame)
         view.addSubview(tableView)
         tableView.restaurants = ZomatoFavouriteManager.manager().favouriteRestaurants
         tableView.reloadData()
@@ -28,7 +18,7 @@ class ZomatoFavouriteViewController: UIViewController {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let rest = userInfo["restaurant"] as? ZomatoRestaurant else {
+        guard let rest = userInfo["restaurant"] as? Restaurant else {
             return
         }
         guard let id = rest.id else {
@@ -51,7 +41,7 @@ class ZomatoFavouriteViewController: UIViewController {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let rest = userInfo["restaurant"] as? ZomatoRestaurant else {
+        guard let rest = userInfo["restaurant"] as? Restaurant else {
             return
         }
         self.tableView.restaurants.append(rest)

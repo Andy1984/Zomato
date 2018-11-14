@@ -18,7 +18,7 @@ let basicURLString = "https://developers.zomato.com/api/v2.1"
 var bestRestaurantCache = "bestRestaurantCache"
 
 class ZomatoHttpManager: NSObject {
-    func request(handle:@escaping ([ZomatoRestaurant])->()) {
+    func request(handle:@escaping ([Restaurant])->()) {
         let URLString = basicURLString + "/location_details"
         let params = ["entity_id":abbotsfordEntityID,
                       "entity_type":abbotsfordEntityType,
@@ -36,12 +36,12 @@ class ZomatoHttpManager: NSObject {
         }
     }
     
-    func handleResultDict(_ resultDict:[String : Any], handle:([ZomatoRestaurant])->()) {
+    func handleResultDict(_ resultDict:[String : Any], handle:([Restaurant])->()) {
         let bestRatedRestaurants:[[String:Any]] = resultDict["best_rated_restaurant"] as! [[String : Any]]
-        var rests:[ZomatoRestaurant] = [];
+        var rests:[Restaurant] = [];
         for dict in bestRatedRestaurants {
             let info = dict["restaurant"] as! [String: Any]
-            let rest = ZomatoRestaurant()
+            let rest = Restaurant()
             rest.user_rating = info["user_rating"] as? [String:Any]
             rest.aggregate_rating = rest.user_rating?["aggregate_rating"] as? String
             rest.feautred_image = info["featured_image"] as? String

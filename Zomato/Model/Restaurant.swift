@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZomatoRestaurant {
+class Restaurant {
     var id:String!
     var aggregate_rating:String?
     var feautred_image:String?
