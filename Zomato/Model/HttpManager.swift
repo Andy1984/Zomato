@@ -9,13 +9,14 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import SwiftyJSON
 
-var melbourneID = 259
-var abbotsfordEntityID = 98284
+let melbourneID = 259
+let abbotsfordEntityID = 98284
 let userKey = "0017c80f7b577868dce86c940250eeaa"
 let abbotsfordEntityType = "subzone"
 let basicURLString = "https://developers.zomato.com/api/v2.1"
-var bestRestaurantCache = "bestRestaurantCache"
+let bestRestaurantCache = "bestRestaurantCache"
 
 class ZomatoHttpManager: NSObject {
     func request(handle:@escaping ([Restaurant])->()) {
@@ -24,6 +25,7 @@ class ZomatoHttpManager: NSObject {
                       "entity_type":abbotsfordEntityType,
                       ] as [String : Any];
         Alamofire.request(URLString, method: .get, parameters: params, encoding: URLEncoding.default, headers: ["user-key":userKey]).responseJSON { (response) in
+        
             guard let resultDict = response.result.value as? [String : Any] else {
                 if let oldResultDict = UserDefaults.standard.value(forKey: bestRestaurantCache) as? [String:Any] {
                     self.handleResultDict(oldResultDict, handle: handle)
@@ -37,30 +39,21 @@ class ZomatoHttpManager: NSObject {
     }
     
     func handleResultDict(_ resultDict:[String : Any], handle:([Restaurant])->()) {
-        let bestRatedRestaurants:[[String:Any]] = resultDict["best_rated_restaurant"] as! [[String : Any]]
-        var rests:[Restaurant] = [];
-        for dict in bestRatedRestaurants {
-            let info = dict["restaurant"] as! [String: Any]
-            let rest = Restaurant()
-            rest.user_rating = info["user_rating"] as? [String:Any]
-            rest.aggregate_rating = rest.user_rating?["aggregate_rating"] as? String
-            rest.feautred_image = info["featured_image"] as? String
-            rest.location = info["location"] as? [String: Any]
-            rest.address = rest.location?["address"] as? String
-            rest.name = info["name"] as? String
-            rest.id = info["id"] as? String
-            if (rest.aggregate_rating != nil) {
-                rests.append(rest)
-            }
-        }
         //Favourite
         let favouriteIDs = ZomatoFavouriteManager.manager().favouriteIDs
-        for rest in rests {
-            if favouriteIDs.contains(rest.id) {
-                rest.isFavourite = true
-                ZomatoFavouriteManager.manager().favouriteRestaurants.append(rest)
+        let json = JSON(resultDict)
+        let bestRatedRestaurantsDictionaryArray = json["best_rated_restaurant"].arrayValue
+        var restaurants:[Restaurant] = []
+        for dictValue in bestRatedRestaurantsDictionaryArray {
+            let dict = dictValue["restaurant"].dictionaryObject
+            if let rest = Restaurant.deserialize(from: dict), rest.id != nil, rest.id != "" {
+                if favouriteIDs.contains(rest.id!) {
+                    rest.isFavourite = true
+                    ZomatoFavouriteManager.manager().favouriteRestaurants.append(rest)
+                }
+                restaurants.append(rest)
             }
         }
-        handle(rests);
+        handle(restaurants)
     }
 }

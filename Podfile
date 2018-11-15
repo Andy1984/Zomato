@@ -10,4 +10,5 @@ target 'Zomato' do
     pod 'HandyJSON'
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'SwiftyJSON'
 end

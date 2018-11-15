@@ -23,7 +23,7 @@ class ZomatoFavouriteManager: NSObject {
     
     private let kFavouriteIDs = "kFavouriteIDs"
     func addFavourite(restaurant:Restaurant) {
-        favouriteIDs.append(restaurant.id)
+        favouriteIDs.append(restaurant.id!)
         favouriteRestaurants.append(restaurant)
         UserDefaults.standard.setValue(favouriteIDs, forKey: kFavouriteIDs)
         NotificationCenter.default.post(name: ZomatoAddFavouriteNotification, object: nil, userInfo: ["restaurant":restaurant])

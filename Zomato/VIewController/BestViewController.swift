@@ -62,7 +62,10 @@ class BestViewController: UIViewController {
         guard let rest = userInfo["restaurant"] as? Restaurant else {
             return
         }
-        guard let indexPath = tableView.getIndexPathToRemove(id: rest.id) else {
+        guard let id = rest.id else {
+            return
+        }
+        guard let indexPath = tableView.getIndexPathToRemove(id: id) else {
             return
         }
         guard let cell = self.tableView.tableView.cellForRow(at: indexPath as IndexPath) as? RestaurantCell else {

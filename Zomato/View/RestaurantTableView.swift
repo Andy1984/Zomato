@@ -58,13 +58,13 @@ class RestaurantTableView: UIView, UITableViewDelegate, UITableViewDataSource, D
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RestaurantCell
         let rest = self.restaurants[indexPath.row]
         cell.nameLabel.text = rest.name
-        cell.addressLabel.text = rest.address
+        cell.addressLabel.text = rest.location?.address
         cell.favouriteButton.isSelected = rest.isFavourite
-        if let url = URL(string: rest.feautred_image!) {
-            let option = SDWebImageOptions(rawValue: 0)
-            cell.backgroundImageView?.sd_setImage(with: url, placeholderImage: UIImage(named: "carousel_placeholder"), options: option, completed: nil)
-        } else {
-            cell.backgroundImageView.image = nil
+        cell.backgroundImageView.image = nil
+        if let imageURL = rest.featured_image {
+            if let url = URL(string: imageURL) {
+                cell.backgroundImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "carousel_placeholder"))
+            }
         }
         cell.favouriteButton.addTarget(self, action: #selector(favouriteButtonClicked), for: .touchUpInside)
         return cell
