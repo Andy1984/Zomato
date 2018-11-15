@@ -8,7 +8,7 @@ class FavouriteViewController: UIViewController {
         self.title = "Favourite"
         self.tableView = RestaurantTableView(frame: self.view.frame)
         view.addSubview(tableView)
-        tableView.restaurants = ZomatoFavouriteManager.manager().favouriteRestaurants
+        tableView.restaurants = FavouriteManager.manager().favouriteRestaurants
         tableView.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(addFavourite(notification:)), name: ZomatoAddFavouriteNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(removeFavourite(notification:)), name: ZomatoRemoveFavouriteNotification, object: nil)

@@ -18,7 +18,7 @@ let abbotsfordEntityType = "subzone"
 let basicURLString = "https://developers.zomato.com/api/v2.1"
 let bestRestaurantCache = "bestRestaurantCache"
 
-class ZomatoHttpManager: NSObject {
+class HttpManager: NSObject {
     func request(handle:@escaping ([Restaurant])->()) {
         let URLString = basicURLString + "/location_details"
         let params = ["entity_id":abbotsfordEntityID,
@@ -40,7 +40,7 @@ class ZomatoHttpManager: NSObject {
     
     func handleResultDict(_ resultDict:[String : Any], handle:([Restaurant])->()) {
         //Favourite
-        let favouriteIDs = ZomatoFavouriteManager.manager().favouriteIDs
+        let favouriteIDs = FavouriteManager.manager().favouriteIDs
         let json = JSON(resultDict)
         let bestRatedRestaurantsDictionaryArray = json["best_rated_restaurant"].arrayValue
         var restaurants:[Restaurant] = []
@@ -49,7 +49,7 @@ class ZomatoHttpManager: NSObject {
             if let rest = Restaurant.deserialize(from: dict), rest.id != nil, rest.id != "" {
                 if favouriteIDs.contains(rest.id!) {
                     rest.isFavourite = true
-                    ZomatoFavouriteManager.manager().favouriteRestaurants.append(rest)
+                    FavouriteManager.manager().favouriteRestaurants.append(rest)
                 }
                 restaurants.append(rest)
             }

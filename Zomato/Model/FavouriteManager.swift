@@ -1,5 +1,5 @@
 //
-//  ZomatoFavouriteManager.swift
+//  FavouriteManager.swift
 //  Zomato
 //
 //  Created by mac on 2018/10/4.
@@ -9,9 +9,9 @@
 import UIKit
 let ZomatoAddFavouriteNotification:NSNotification.Name = NSNotification.Name(rawValue: "ZomatoAddFavouriteNotification")
 let ZomatoRemoveFavouriteNotification:NSNotification.Name = NSNotification.Name(rawValue: "ZomatoRemoveFavouriteNotification")
-class ZomatoFavouriteManager: NSObject {
-    private static let _manager = ZomatoFavouriteManager()
-    class func manager() -> ZomatoFavouriteManager{
+class FavouriteManager: NSObject {
+    private static let _manager = FavouriteManager()
+    class func manager() -> FavouriteManager{
         return _manager
     }
     private override init() {

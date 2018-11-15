@@ -17,7 +17,7 @@ class BestViewController: UIViewController {
         super.viewDidLoad()
         self.tableView = RestaurantTableView(frame: self.view.frame)
         view.addSubview(tableView)
-        let manager = ZomatoHttpManager()
+        let manager = HttpManager()
         //http request and cache
         manager.request(handle: { (restaurants) in
             self.tableView.restaurants = restaurants

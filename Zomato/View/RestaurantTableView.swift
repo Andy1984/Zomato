@@ -26,6 +26,7 @@ class RestaurantTableView: UIView, UITableViewDelegate, UITableViewDataSource, D
         tableView.rowHeight = cellHeight
         tableView.allowsSelection = false
         tableView.emptyDataSetSource = self
+        
     }
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributeString:NSAttributedString = NSAttributedString(string: "No favourite")
@@ -79,9 +80,9 @@ class RestaurantTableView: UIView, UITableViewDelegate, UITableViewDataSource, D
         let rest = self.restaurants[tag]
         rest.isFavourite = sender.isSelected
         if rest.isFavourite {
-            ZomatoFavouriteManager.manager().addFavourite(restaurant: rest)
+            FavouriteManager.manager().addFavourite(restaurant: rest)
         } else {
-            ZomatoFavouriteManager.manager().removeFavourite(restaurant: rest)
+            FavouriteManager.manager().removeFavourite(restaurant: rest)
         }
         
     }
